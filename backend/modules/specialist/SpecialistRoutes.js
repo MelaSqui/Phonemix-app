@@ -1,10 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const SpecialistController = require('./SpecialistController'); 
+const express = require("express");
+const SpecialistController = require("./SpecialistController");
 
-router.get('/children', SpecialistController.getAssignedChildren);
-router.get('/stats', SpecialistController.getSpecialistStats);
-router.get('/child-report', SpecialistController.getChildReportFromDB);
+const router = express.Router();
+
+router.post("/reports", SpecialistController.createReport);
+router.get("/reports/specialist", SpecialistController.getReportsBySpecialist);
+router.get("/reports/parent", SpecialistController.getReportsByParent);
+router.get("/reports/child", SpecialistController.getReportsByChild);
 router.post('/evaluation', SpecialistController.sendEvaluation);
+
+// rutas de familias
+router.get("/users", SpecialistController.getUsersWithChildren);
 
 module.exports = router;

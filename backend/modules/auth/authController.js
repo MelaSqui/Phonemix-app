@@ -1,9 +1,8 @@
 const bcrypt = require('bcrypt');
-const jwt = require('../../shared/JWTHandler'); // Ruta al manejador de JWT
+const jwt = require('../../shared/JWTHandler'); 
 const { pool } = require("../../shared/Database"); 
 const request = require("supertest");
-const app = require("../../server"); // ✅ Debe importar `app`, NO iniciar el servidor
-
+const app = require("../../server"); 
 
 const AuthController = {
   async login(req, res) {
@@ -14,7 +13,7 @@ const AuthController = {
         return res.status(400).json({ message: 'Email y contraseña son requeridos.' });
       }
   
-      // 🔹 Buscar el usuario y devolver `id` en lugar de `padre_id`
+      // 🔹 Buscar el usuario y devolver `id`
       const userResult = await pool.query('SELECT id, email, password FROM usuarios WHERE email = $1', [email]);
   
       if (userResult.rows.length > 0) {
@@ -23,19 +22,19 @@ const AuthController = {
   
         if (isPasswordValid) {
           const token = jwt.generate({ id: user.id, email: user.email });
-  
+
           return res.status(200).json({ 
             token, 
             message: 'Login exitoso', 
             type: 'usuario',
-            padre_id: user.id  // 🔹 Usamos `id` del usuario como identificador del padre
+            padre_id: user.id  
           });
         } else {
           return res.status(401).json({ message: 'Contraseña incorrecta.' });
         }
       }
   
-      // 🔹 Buscar en la tabla de especialistas
+      // 🔹 Buscar en la tabla de especialistas y devolver `id`
       const specialistResult = await pool.query('SELECT id, email, password FROM especialistas WHERE email = $1', [email]);
   
       if (specialistResult.rows.length > 0) {
@@ -44,11 +43,12 @@ const AuthController = {
   
         if (isPasswordValid) {
           const token = jwt.generate({ id: specialist.id, email: specialist.email });
-  
+
           return res.status(200).json({ 
             token, 
             message: 'Login exitoso', 
-            type: 'especialista' 
+            type: 'especialista',
+            specialist_id: specialist.id  
           });
         } else {
           return res.status(401).json({ message: 'Contraseña incorrecta.' });
@@ -62,9 +62,7 @@ const AuthController = {
       return res.status(500).json({ message: 'Error interno del servidor.' });
     }
   },
-  
 
-  // Método actualizado para el login de niños
   async loginChild(req, res) {
     const { pin } = req.body;
 
@@ -73,10 +71,9 @@ const AuthController = {
         return res.status(400).json({ message: 'El PIN es requerido.' });
       }
 
-      // Buscar en la tabla de niños usando el PIN
-      console.log('PIN recibido para niño:', pin); // Log para depuración
+      console.log('PIN recibido para niño:', pin);
       const childResult = await pool.query('SELECT * FROM ninos WHERE pin = $1', [pin]);
-      console.log('Resultado de la consulta niños:', childResult.rows); // Log para depuración
+      console.log('Resultado de la consulta niños:', childResult.rows);
 
       if (childResult.rows.length > 0) {
         const child = childResult.rows[0];

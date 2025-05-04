@@ -16,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> handleLogin() async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
-    final url = Uri.parse("http://192.168.40.172:3000/auth/login"); // Cambia localhost por la IP del backend
+    final url = Uri.parse("http://192.168.0.6:3000/auth/login"); // Cambia localhost por la IP del backend
 
     if (email.isEmpty || password.isEmpty) {
       _showErrorDialog("Por favor, complete todos los campos.");

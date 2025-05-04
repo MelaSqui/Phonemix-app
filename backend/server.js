@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const authRoutes = require("./modules/auth/authRoutes");
 const controlParentalRoutes = require("./modules/control_parental/ControlParentalRoutes");
 const specialistRoutes = require("./modules/specialist/SpecialistRoutes");
@@ -8,6 +9,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json()); // Esto permite manejar JSON correctamente
 
 app.use("/auth", authRoutes);
 app.use("/control-parental", controlParentalRoutes);

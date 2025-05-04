@@ -12,7 +12,7 @@ class _LoginNinoScreenState extends State<LoginNinoScreen> {
 
   Future<void> handleChildLogin() async {
     final pin = pinController.text.trim();
-    final url = Uri.parse("http://192.168.40.172:3000/auth/login-child"); // Endpoint exclusivo para niños
+    final url = Uri.parse("http://192.168.0.6:3000/auth/login-child"); // Endpoint exclusivo para niños
 
     if (pin.isEmpty) {
       _showErrorDialog("Por favor, ingresa tu PIN.");

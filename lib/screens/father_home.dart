@@ -41,8 +41,8 @@ class _FatherHomeScreenState extends State<FatherHomeScreen> {
     }
 
     try {
-      Uri uriChildren = Uri.http('192.168.40.172:3000', '/control-parental/children', {'padre_id': parentId});
-      Uri uriMessages = Uri.http('192.168.40.172:3000', '/control-parental/mensajes-especialista', {'padre_id': parentId});
+      Uri uriChildren = Uri.http('192.168.0.6:3000', '/control-parental/children', {'padre_id': parentId});
+      Uri uriMessages = Uri.http('192.168.0.6:3000', '/control-parental/mensajes-especialista', {'padre_id': parentId});
 
       final childrenResponse = await http.get(uriChildren);
       final messagesResponse = await http.get(uriMessages);

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/father_home': (context) => FatherHomeScreen(),
         '/parent_profile': (context) => ParentProfileScreen(),
-        '/specialist_dashboard': (context) => SpecialistDashboardScreen(specialistId: '1'), // ID del especialista
+        '/specialist_dashboard': (context) => DashboardScreen(), // ID del especialista
         '/child_home': (context) => ChildHomeScreen(),
         '/child_login': (context) => LoginNinoScreen(),
       },
